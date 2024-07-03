@@ -12,6 +12,7 @@ export const Arrows = () => {
     boardWidth,
 
     customArrowColor: primaryArrowCollor,
+    customArrowStyle,
   } = useChessboard();
   const arrowsList = [...arrows, newArrow].filter(Boolean) as Arrow[];
 
@@ -63,6 +64,13 @@ export const Arrows = () => {
           y: from.y + (dy * (r - ARROW_LENGTH_REDUCER)) / r,
         };
 
+        const arrowWidth = customArrowStyle?.strokeWidth
+          ? customArrowStyle.strokeWidth
+          : boardWidth / 40;
+
+        const arrowHeadHeight = Math.min(6, Math.max(2.5, 20 / arrowWidth));
+        const arrowHeadWidth = Math.min(5, Math.max(2, 16 / arrowWidth));
+
         return (
           <Fragment
             key={`${arrowStartField}-${arrowEndField}${
@@ -71,14 +79,16 @@ export const Arrows = () => {
           >
             <marker
               id={`arrowhead-${i}`}
-              markerWidth="2"
-              markerHeight="2.5"
-              refX="1.25"
-              refY="1.25"
+              markerWidth={arrowHeadWidth}
+              markerHeight={arrowHeadHeight}
+              refX={arrowHeadHeight / 2}
+              refY={arrowHeadHeight / 2}
               orient="auto"
             >
               <polygon
-                points="0.3 0, 2 1.25, 0.3 2.5"
+                points={`0.3 0, ${arrowHeadWidth} ${
+                  arrowHeadHeight / 2
+                }, 0.3 ${arrowHeadHeight}`}
                 fill={arrowColor ?? primaryArrowCollor}
               />
             </marker>
@@ -87,11 +97,15 @@ export const Arrows = () => {
               y1={from.y}
               x2={end.x}
               y2={end.y}
-              opacity={isArrowActive ? "0.5" : "0.65"}
-              stroke={arrowColor ?? primaryArrowCollor}
-              strokeWidth={
-                isArrowActive ? (0.9 * boardWidth) / 40 : boardWidth / 40
+              opacity={
+                isArrowActive
+                  ? "0.5"
+                  : customArrowStyle?.opacity
+                  ? customArrowStyle?.opacity
+                  : "0.65"
               }
+              stroke={arrowColor ?? primaryArrowCollor}
+              strokeWidth={isArrowActive ? 0.9 * arrowWidth : arrowWidth}
               markerEnd={`url(#arrowhead-${i})`}
             />
           </Fragment>

@@ -132,6 +132,11 @@ export type Coords = { x: number; y: number };
 
 export type Arrow = [Square, Square, string?];
 
+export type CustomArrowStyles = {
+  strokeWidth: number;
+  opacity: string;
+};
+
 export type ChessboardProps = {
   /**
    * Whether or not the piece can be dragged outside of the board
@@ -189,6 +194,11 @@ export type ChessboardProps = {
    * @default rgb(255,170,0)
    */
   customArrowColor?: string;
+  /**
+   * Custom arrow style object.
+   * @default {}
+   */
+  customArrowStyle?: CustomArrowStyles;
   /**
    * Custom board style object e.g. { borderRadius: '5px', boxShadow: '0 5px 15px rgba(0, 0, 0, 0.5 '}.
    * @default {}
