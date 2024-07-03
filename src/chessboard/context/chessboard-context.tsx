@@ -49,6 +49,7 @@ interface ChessboardProviderContext {
   boardOrientation: RequiredChessboardProps["boardOrientation"];
   boardWidth: RequiredChessboardProps["boardWidth"];
   customArrowColor: RequiredChessboardProps["customArrowColor"];
+  customArrowStyle: ChessboardProps["customArrowStyle"];
   customBoardStyle: ChessboardProps["customBoardStyle"];
   customNotationStyle: ChessboardProps["customNotationStyle"];
   customDarkSquareStyle: RequiredChessboardProps["customDarkSquareStyle"];
@@ -123,6 +124,7 @@ export const ChessboardProvider = forwardRef(
       clearPremovesOnRightClick = true,
       customArrows,
       customArrowColor = "rgb(255,170,0)",
+      customArrowStyle,
       customBoardStyle,
       customNotationStyle,
       customDarkSquareStyle = { backgroundColor: "#B58863" },
@@ -456,6 +458,7 @@ export const ChessboardProvider = forwardRef(
       boardOrientation,
       boardWidth,
       customArrowColor,
+      customArrowStyle,
       customBoardStyle,
       customNotationStyle,
       customDarkSquareStyle,
